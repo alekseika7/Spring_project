@@ -67,6 +67,7 @@ def turn(direction):
     else:
         print('Possible variants for the direction: right, left') 
 
+        
 #turn off pins and reset most of them to the input mode
 def off_n_reset():
     
