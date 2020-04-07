@@ -23,14 +23,16 @@ class Window(QWidget):
        
     def initWindow(self):
         
-        
+        #window parameters
         self.setGeometry(100, 100, 490, 490)
         self.setWindowTitle('Car')
         self.setWindowIcon(QIcon('r.png'))
         
+        #grid for placing objects
         grid = QGridLayout()
         grid.setSpacing(5)
         
+        #buttons for control and exit
         b_front = QPushButton('(W)', self)
         b_front.setIcon(QIcon('up.png'))
         b_front.setIconSize(QSize(30,30))
@@ -64,7 +66,7 @@ class Window(QWidget):
         
         self.show()
         
-        
+    #initialize camera    
     def initCamera(self):
             
         self.vs = cv2.VideoCapture(0)
@@ -75,15 +77,15 @@ class Window(QWidget):
         self.timer.timeout.connect(self.stream)
         self.timer.start(60)
         
-        
+    #get the video stream from camera     
     def stream(self):
         
         _, frame = self.vs.read()
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = qimage2ndarray.array2qimage(frame)
+        image = qimage2ndarray.array2qimage(frame)  #find this somewhere in the Internet, prevents huge CPU leaks
         self.label.setPixmap(QPixmap.fromImage(image))
 
-    
+    #run functions only when key is being pressed
     def keyPressEvent(self, event):
         key = event.key()
         if key == Qt.Key_A and not event.isAutoRepeat():
@@ -99,7 +101,7 @@ class Window(QWidget):
             car.move('front')
             print('front')
             
-            
+    #stop function when key has been released        
     def keyReleaseEvent(self, event):
         key = event.key()
         if key in (Qt.Key_A, Qt.Key_D, Qt.Key_S, Qt.Key_W) and not event.isAutoRepeat():
