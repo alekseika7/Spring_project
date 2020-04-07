@@ -11,13 +11,8 @@ def init():
     gpio.setwarnings(False)
     gpio.setup(pins, gpio.OUT)
     gpio.output(pins, 0)
+    gpio.output((3, 15), 1) #set voltage on enable pins
 
-
-#set voltage on enable pins
-def motors_enable():
-    
-    gpio.output((3, 15), 1)
-    
 
 #turn off motors
 def motors_off():
@@ -77,4 +72,3 @@ def off_n_reset():
     
     gpio.output(pins, 0)
     gpio.cleanup((15, 14, 18, 3, 4))
-    
