@@ -26,7 +26,7 @@ class Window(QWidget):
         #window parameters
         self.setGeometry(100, 100, 490, 490)
         self.setWindowTitle('Car')
-        self.setWindowIcon(QIcon('r.png'))
+        self.setWindowIcon(QIcon('icons/r.png'))
         
         #grid for placing objects
         grid = QGridLayout()
@@ -34,27 +34,27 @@ class Window(QWidget):
         
         #buttons for control and exit
         b_front = QPushButton('(W)', self)
-        b_front.setIcon(QIcon('up.png'))
+        b_front.setIcon(QIcon('icons/up.png'))
         b_front.setIconSize(QSize(30,30))
         grid.addWidget(b_front, 3, 1)
         
         b_back = QPushButton('(S)', self)
-        b_back.setIcon(QIcon('down.png'))
+        b_back.setIcon(QIcon('icons/down.png'))
         b_back.setIconSize(QSize(30,30))
         grid.addWidget(b_back, 4, 1)
         
         b_right = QPushButton('(D)', self)
-        b_right.setIcon(QIcon('right.png'))
+        b_right.setIcon(QIcon('icons/right.png'))
         b_right.setIconSize(QSize(30,30))
         grid.addWidget(b_right, 4, 2)
         
         b_left = QPushButton('(A)', self)
-        b_left.setIcon(QIcon('left.png'))
+        b_left.setIcon(QIcon('icons/left.png'))
         b_left.setIconSize(QSize(30,30))
         grid.addWidget(b_left, 4, 0)
         
         b_exit = QPushButton('', self)
-        b_exit.setIcon(QIcon('exit.png'))
+        b_exit.setIcon(QIcon('icons/exit.png'))
         b_exit.setIconSize(QSize(30,30))
         b_exit.clicked.connect(QCoreApplication.instance().quit)
         grid.addWidget(b_exit, 4, 5)
