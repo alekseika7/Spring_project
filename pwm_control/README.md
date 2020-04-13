@@ -1,1 +1,1 @@
-PWM by Egor
+PWM
