@@ -1,8 +1,0 @@
-prefix=/home/pi/Spring_project/ros_bot/devel
-
-Name: control_package
-Description: Description of control_package
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
