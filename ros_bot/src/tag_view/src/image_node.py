@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python
 
 import rospy
 from sensor_msgs.msg import Image
@@ -11,9 +11,9 @@ bridge = CvBridge()
 
 def callback(data):
     try:
-        cv_img = bridge.imgmsg_to_cv2(data, 'bgr8')
+        cv_img = bridge.imgmsg_to_cv2(data, "bgr8")
         cv2.imshow('Scanner', cv_img)
-        cv2.waitkey(1) & 0xFF
+        cv2.waitKey(1) & 0xFF
     except CvBridgeError as e:
         rospy.loginfo(str(e))
 

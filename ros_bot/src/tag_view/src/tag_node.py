@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python
 
 import rospy
 from sensor_msgs.msg import Image
@@ -23,27 +23,51 @@ def scan(data):
         for barcode in barcodes:
             
             b_data = barcode.data.decode("utf-8")
-            b_type = barcode.data.type
             
             if len(b_data) > 0:
-                rospy.loginfo('Barcode data: %f', b_data)
+                rospy.loginfo(str(b_data))
                 
                 if b_data == 'front':
-                    twist = {linear: {x: 1.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}
+                    twist.linear.x = 1.0
+                    twist.linear.y = 0.0
+                    twist.linear.z = 0.0
+                    twist.angular.x = 0.0
+                    twist.angular.y = 0.0
+                    twist.angular.z = 0.0
                 elif b_data == 'back':
-                    twist = {linear: {x: -1.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}
+                    twist.linear.x = -1.0
+                    twist.linear.y = 0.0
+                    twist.linear.z = 0.0
+                    twist.angular.x = 0.0
+                    twist.angular.y = 0.0
+                    twist.angular.z = 0.0
                 elif b_data == 'right':
-                    twist = {linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.0}}
+                    twist.linear.x = 0.0
+                    twist.linear.y = 0.0
+                    twist.linear.z = 0.0
+                    twist.angular.x = 0.0
+                    twist.angular.y = 0.0
+                    twist.angular.z = 1.0
                 elif b_data == 'left':
-                    twist = {linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -1.0}}
+                    twist.linear.x = 0.0
+                    twist.linear.y = 0.0
+                    twist.linear.z = 0.0
+                    twist.angular.x = 0.0
+                    twist.angular.y = 0.0
+                    twist.angular.z = -1.0
                 else:
-                    twist = {linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}
+                    twist.linear.x = 0.0
+                    twist.linear.y = 0.0
+                    twist.linear.z = 0.0
+                    twist.angular.x = 0.0
+                    twist.angular.y = 0.0
+                    twist.angular.z = 0.0
                     
             else:
                 rospy.loginfo('No data')
                 
-        if b_data in ('front', 'back', 'left', 'right', 'stop'):
-            pub.publish(twist)
+            if b_data in ('front', 'back', 'left', 'right', 'stop'):
+                pub.publish(twist)
             
     except CvBridgeError as e:
         rospy.loginfo(str(e))
