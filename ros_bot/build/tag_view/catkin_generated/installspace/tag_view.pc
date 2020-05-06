@@ -1,0 +1,8 @@
+prefix=/home/pi/Spring_project/ros_bot/install
+
+Name: tag_view
+Description: Description of tag_view
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

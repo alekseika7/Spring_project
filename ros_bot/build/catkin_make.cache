@@ -1,2 +1,2 @@
-car_control
+car_control:tag_view
 -DCATKIN_DEVEL_PREFIX=/home/pi/Spring_project/ros_bot/devel -DCMAKE_INSTALL_PREFIX=/home/pi/Spring_project/ros_bot/install -G Unix Makefiles

@@ -7,4 +7,9 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/pi/Spring_project/ros_bot/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/pi/Spring_project/ros_bot/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/pi/Spring_project/ros_bot/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/pi/Spring_project/ros_bot/build"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/pi/Spring_project/ros_bot/devel/share/common-lisp"
+export ROS_PACKAGE_PATH="/home/pi/Spring_project/ros_bot/src:$ROS_PACKAGE_PATH"
