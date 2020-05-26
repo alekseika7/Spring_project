@@ -11,9 +11,11 @@ bridge = CvBridge()
 
 def callback(data):
     try:
-        cv_img = bridge.imgmsg_to_cv2(data, "bgr8")
-        cv2.imshow('Scanner', cv_img)
+        frame = bridge.imgmsg_to_cv2(data, "bgr8")
+        frame = cv2.resize(frame,(500, 375))
+        cv2.imshow('Scanner', frame)
         cv2.waitKey(1) & 0xFF
+        
     except CvBridgeError as e:
         rospy.loginfo(str(e))
 
