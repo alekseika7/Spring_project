@@ -1,0 +1,14 @@
+roscore
+
+-new window-
+rosparam set cv_camera/device_id 0
+rosrun cv_camera cv_camera_node		#run the camera
+
+-new window-
+rosrun tag_view image_node.py		#image from the camera
+
+-new window-
+rosrun tag_view leader_positon_node.py	#run the scanner
+
+-new window-
+rostopic echo /leader_position		#look at the data
