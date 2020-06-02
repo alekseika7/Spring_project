@@ -1,20 +1,20 @@
 #!/usr/bin/python3.7
 import rospy
 from geometry_msgs.msg import Twist
-from gui_for_test import car
+#from gui_for_test import car
 import car
 car.init()
 
 def go(data):
     
     if data.angular.z > 0:
-        car.turn('right')
+        car.turn('right', 0.35)
     elif data.angular.z < 0:
-        car.turn('left')
+        car.turn('left', 0.35)
     elif data.linear.x > 0:
-        car.move('front')
+        car.move('front', 0.35)
     elif data.linear.x < 0:
-        car.move('back')
+        car.move('back', 0.35)
     else:
         car.motors_off()
         
