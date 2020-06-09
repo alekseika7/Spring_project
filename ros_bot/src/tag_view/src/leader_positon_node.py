@@ -14,16 +14,7 @@ position = Float32MultiArray()
 
 rospy.init_node('get_leader_node')
 pub = rospy.Publisher('/leader_position', Float32MultiArray, queue_size = 1)
-
-#twist = Twist()
-
-#twist.linear.x = 0
-#twist.linear.y = 0
-#twist.linear.z = 0
-#twist.angular.x = 0
-#twist.angular.y = 0
-#twist.angular.z = 0
-
+rate = rospy.Rate(10)
 
 REAL_WIDTH = 0.05 #real lenght of the qr-code in meters
 REAL_HIGTH = 0.05 #real heigth of the qr-code in meters
@@ -53,8 +44,9 @@ def get_position(data):
                 z0 = FOCAL_LENGTH*REAL_HIGTH*100/h
             
                 distance = np.sqrt((x0/k)**2 + (y0/k)**2 + z0**2)    #distance between the camera and the object in meters            
-            
-                position.data = [distance, x0]
+                angle = np.arctan(x0/distance)
+
+                position.data = [distance, angle]
 
                 #if distance < WORK_DISTANCE:
                     #twist.linear.x = -1
@@ -66,8 +58,10 @@ def get_position(data):
         elif len(barcodes) == 0:
             #twist.linear.x = 0
             position.data = [-1]
-            pub.publish(position)
-            
+            pub.publish(position)   
+
+        rate.sleep()
+
     except CvBridgeError as e:
         rospy.loginfo(str(e))
 
