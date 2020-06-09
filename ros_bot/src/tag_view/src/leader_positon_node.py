@@ -1,27 +1,28 @@
-#!/usr/bin/python
+#!/usr/bin/python3.7
 
 import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-#from std_msgs.msg import Float32MultiArray, Float32
-from geometry_msgs.msg import Twist
+from std_msgs.msg import Float32MultiArray
+#from geometry_msgs.msg import Twist
 import cv2
 from pyzbar import pyzbar
 import numpy as np
 
 bridge = CvBridge()
+position = Float32MultiArray()
 
 rospy.init_node('get_leader_node')
-pub = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
+pub = rospy.Publisher('/leader_position', Float32MultiArray, queue_size = 1)
 
-twist = Twist()
+#twist = Twist()
 
-twist.linear.x = 0
-twist.linear.y = 0
-twist.linear.z = 0
-twist.angular.x = 0
-twist.angular.y = 0
-twist.angular.z = 0
+#twist.linear.x = 0
+#twist.linear.y = 0
+#twist.linear.z = 0
+#twist.angular.x = 0
+#twist.angular.y = 0
+#twist.angular.z = 0
 
 
 REAL_WIDTH = 0.05 #real lenght of the qr-code in meters
@@ -53,19 +54,19 @@ def get_position(data):
             
                 distance = np.sqrt((x0/k)**2 + (y0/k)**2 + z0**2)    #distance between the camera and the object in meters            
             
-                #position = Float32MultiArray()
-                #position.data = [distance, x0]
+                position.data = [distance, x0]
 
-                if distance < WORK_DISTANCE:
-                    twist.linear.x = -1
-                elif distance > WORK_DISTANCE:
-                    twist.linear.x = 1
+                #if distance < WORK_DISTANCE:
+                    #twist.linear.x = -1
+                #elif distance > WORK_DISTANCE:
+                    #twist.linear.x = 1
 
-                pub.publish(twist)
+                pub.publish(position)
 
         elif len(barcodes) == 0:
-            twist.linear.x = 0
-            pub.publish(twist)
+            #twist.linear.x = 0
+            position.data = [-1]
+            pub.publish(position)
             
     except CvBridgeError as e:
         rospy.loginfo(str(e))

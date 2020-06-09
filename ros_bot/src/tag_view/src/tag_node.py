@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.7
 
 import rospy
 from sensor_msgs.msg import Image
