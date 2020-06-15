@@ -1,0 +1,12 @@
+--new window--
+roscore
+
+--new window--
+rosrun tag_view leader_position_node.py		# run scanner
+
+--new window--
+rosrun car_control object.py	# run motor handler
+
+--new window--
+rosrun car_control controller.py	# pid regulator
+
