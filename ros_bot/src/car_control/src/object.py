@@ -1,38 +1,31 @@
 #!/usr/bin/python3.7
+
 import rospy
-from std_msgs.msg import Float32
-
-import numpy as np
-
-#from gui_for_test import car
 import car
+from std_msgs.msg import Int16MultiArray
+
 car.init()
 
 def go(data):
-    speed = round(data.data, 2)
-    if speed > 0:
-        #car.turn('right', 0.35)
-    #elif data.angular.z < 0:
-        #car.turn('left', 0.35)
-    #elif data.linear.x > 0:
-        car.move('front', speed)
-    elif speed < 0:
-        car.move('back', np.abs(speed))
-    else:
-        car.motors_off()
-        
-    rospy.loginfo('speed = ' + str(speed))   
-        
-        
+    linear_speed = data.data[0]/100
+    rotation_speed = data.data[1]/100
+
+    speed_l = linear_speed + rotation_speed
+    speed_r = linear_speed - rotation_speed
+
+    car.direct_controll(speed_l, speed_r)
+
+    #print(speed_l, speed_r)
+
 def listen():
-    
+
     rospy.init_node('object', anonymous=True)
-    rospy.Subscriber('/controller_output', Float32, go)
-    
+    rospy.Subscriber('/controller_output', Int16MultiArray, go)
+
     rospy.loginfo('bot is ready to move')
-    
+
     rospy.spin()
-    
+
 
 if __name__ =='__main__':
     try:

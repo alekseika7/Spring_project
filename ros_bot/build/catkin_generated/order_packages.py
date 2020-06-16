@@ -2,4 +2,4 @@
 source_root_dir = '/home/pi/Spring_project/ros_bot/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/opt/ros/melodic'.split(';') if '/opt/ros/melodic' != '' else []
+underlay_workspaces = '/home/pi/catkin_workspace/install;/home/pi/Spring_project/ros_bot/devel;/home/pi/catkin_ws/devel;/opt/ros/melodic'.split(';') if '/home/pi/catkin_workspace/install;/home/pi/Spring_project/ros_bot/devel;/home/pi/catkin_ws/devel;/opt/ros/melodic' != '' else []
