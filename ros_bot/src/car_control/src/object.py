@@ -7,13 +7,16 @@ from std_msgs.msg import Int16MultiArray
 car.init()
 
 def go(data):
-    linear_speed = data.data[0]/100
-    rotation_speed = data.data[1]/100
+    if (data.data[0] > 100):
+        car.motors_off()
+    else:    
+        linear_speed = data.data[0]/100
+        rotation_speed = data.data[1]/100
 
-    speed_l = linear_speed + rotation_speed
-    speed_r = linear_speed - rotation_speed
+        speed_l = linear_speed + rotation_speed
+        speed_r = linear_speed - rotation_speed
 
-    car.direct_controll(speed_l, speed_r)
+        car.direct_controll(speed_l, speed_r)
 
     #print(speed_l, speed_r)
 
