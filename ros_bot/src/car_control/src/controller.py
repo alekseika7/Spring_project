@@ -11,24 +11,24 @@ pub = rospy.Publisher('/controller_output', Int16MultiArray, queue_size = 1)
 position = Int16MultiArray()  # array for the distance and angle
 control = Int16MultiArray()  # array for control
 
-SETPOINT = 150
+SETPOINT = 230
 
 def controller(position):
     if len(position.data) == 1:
-        linear = 0
-        control.data = [0, 0]
-        #print("Can't see QR-code")
+        #linear = 0
+        control.data = [999, 0]
+        print("No QR-code")
 
     else:
 
         distance = position.data[0]
         angle = position.data[1]
 
-        pid_linear = PID(-1.0, -0.5, -0.12, setpoint=distance)
-        pid_linear.output_limits = (-50, 50)
+        pid_linear = PID(-0.5, -1, -0.05, setpoint=distance)
+        pid_linear.output_limits = (-15, 45)
 
-        pid_angular = PID(1, 1.5, 0.12, setpoint=angle)
-        pid_angular.output_limits = (-40, 40)
+        pid_angular = PID(1.5, 2, 0.01, setpoint=angle)
+        pid_angular.output_limits = (-25, 25)
 
         pid_linear.setpoint = SETPOINT   #distance in mm
         pid_angular.setpoint = 0   # zero angle needed
@@ -37,14 +37,25 @@ def controller(position):
         #start_time = time.time()
         #last_time = start_time
 
-        pid_linear.sample_time = 0.001  # update every 0.001 seconds
-        pid_angular.sample_time = 0.001  # update every 0.001 seconds
+        pid_linear.sample_time = 0.01  # update every 0.001 seconds
+        pid_angular.sample_time = 0.01  # update every 0.001 seconds
 
         linear = pid_linear(distance)
+        
+        if linear > 0:
+            linear += 15
+        elif linear < 0:
+            linear -= 15
+        
         angular = pid_angular(angle)
 
+        if angular > 0:
+            angular += 5
+        elif angular < 0:
+            angular -= 5
+            
         control.data = [int(linear), int(angular)]   # final package for publishing
-        #print(int(linear), int(angular))
+        print(int(linear), int(angular))
 
     pub.publish(control)
     #rospy.loginfo(str(linear))
